@@ -8,6 +8,7 @@ export const HERMES_DIRECT_TOOLS = [
   "mcp_withings_withings_connection_status",
   "mcp_withings_withings_daily_summary",
   "mcp_withings_withings_weekly_summary",
+  "mcp_withings_withings_wellness_context",
   "mcp_withings_withings_list_activity",
   "mcp_withings_withings_list_sleep_summary",
   "mcp_withings_withings_list_body_measures"
@@ -27,6 +28,7 @@ const STANDARD_TOOLS = [
   "withings_list_heart",
   "withings_daily_summary",
   "withings_weekly_summary",
+  "withings_wellness_context",
   "withings_privacy_audit",
   "withings_cache_status",
   "withings_revoke_access"
@@ -58,7 +60,7 @@ export function buildAgentManifest(client: AgentClientName = "generic") {
       token_storage: "~/.withings-mcp/tokens.json with 0600 permissions",
       secret_storage: "~/.withings-mcp/config.json or WITHINGS_* environment variables; never print secrets"
     },
-    recommended_first_calls: ["withings_connection_status", "withings_daily_summary", "withings_weekly_summary"],
+    recommended_first_calls: ["withings_connection_status", "withings_wellness_context", "withings_daily_summary", "withings_weekly_summary"],
     standard_tools: STANDARD_TOOLS,
     resources: RESOURCES,
     hermes: {
@@ -127,7 +129,7 @@ ${manifest.agent_rules.map((rule) => `- ${rule}`).join("\n")}
 }
 
 export function hermesConfigSnippet(): string {
-  return `mcp_servers:\n  withings:\n    command: npx\n    args:\n      - -y\n      - ${PINNED_NPM_PACKAGE}`;
+  return `mcp_servers:\n  withings:\n    command: npx\n    args:\n      - -y\n      - ${PINNED_NPM_PACKAGE}\n    timeout: 120\n    connect_timeout: 60\n    sampling:\n      enabled: false`;
 }
 
 export function hermesSkillMarkdown(): string {

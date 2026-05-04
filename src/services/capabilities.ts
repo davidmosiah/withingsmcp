@@ -31,7 +31,7 @@ export function buildCapabilities() {
     supported_data: [
       { name: "Body measures", examples: ["weight", "body composition", "blood pressure-capable measure groups"], tools: ["withings_list_body_measures"] },
       { name: "Activity and workouts", examples: ["steps", "calories", "distance", "workout summaries"], tools: ["withings_list_activity", "withings_list_workouts"] },
-      { name: "Sleep", examples: ["sleep score", "duration", "sleep efficiency", "stages", "snoring where available"], tools: ["withings_list_sleep_summary", "withings_list_sleep", "withings_daily_summary", "withings_weekly_summary"] },
+      { name: "Sleep", examples: ["sleep score", "duration", "sleep efficiency", "stages", "snoring where available"], tools: ["withings_list_sleep_summary", "withings_list_sleep", "withings_daily_summary", "withings_weekly_summary", "withings_wellness_context"] },
       { name: "Heart records", examples: ["heart lists/records where available by device and scope"], tools: ["withings_list_heart"] }
     ],
     recommended_agent_flow: [
@@ -39,6 +39,7 @@ export function buildCapabilities() {
       "Call withings_connection_status before calling Withings data tools.",
       "If setup is incomplete, guide the user through setup, auth and doctor.",
       "Use withings_daily_summary or withings_weekly_summary before low-level endpoint tools.",
+      "Use withings_wellness_context when handing sleep/activity context to Exercise Catalog.",
       "Treat health data as sensitive; avoid raw payloads unless explicitly requested.",
       "Use Withings as trend context, not medical diagnosis. Escalate symptoms or abnormal vitals to clinicians."
     ],
